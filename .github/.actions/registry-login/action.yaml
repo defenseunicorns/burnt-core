@@ -1,0 +1,21 @@
+name: Registry Login
+description: Login to Registry for building bundles in CI jobs
+
+inputs:
+  username:
+    description: Registry1 user
+    required: true
+  password:
+    description: Registry1 PW
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Login to Registry1
+      uses: docker/login-action@v3
+      with:
+        registry: registry1.dso.mil
+        username: ${{ inputs.username }}
+        password: ${{ inputs.password }}
+        
