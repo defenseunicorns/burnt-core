@@ -19,12 +19,24 @@ jobs:
         if: github.event.pull_request.draft == true
         run: exit 1
 
-      - uses: actions/checkout@v4
+      - name: Free GH runner space
+        run: |
+          df -h
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /opt/hostedtoolcache/CodeQL
+          sudo docker image prune --all --force
+          df -h
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - uses: ./.github/actions/registry-login
         with:
           username: ${{ secrets.REGISTRY1_USERNAME }}
           password: ${{ secrets.REGISTRY1_PASSWORD }}
+          download-init-package: true
 
       - name: Create k3d cluster
         id: create-cluster

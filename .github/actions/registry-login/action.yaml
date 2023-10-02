@@ -8,6 +8,9 @@ inputs:
   password:
     description: Registry1 PW
     required: true
+  download-init-package: 
+    description: Include Zarf init package
+    required: false
 
 runs:
   using: composite
@@ -18,4 +21,11 @@ runs:
         registry: registry1.dso.mil
         username: ${{ inputs.username }}
         password: ${{ inputs.password }}
+        
+    - name: Install Zarf
+      uses: defenseunicorns/setup-zarf@main
+      with:
+        # renovate: datasource=github-tags depName=defenseunicorns/zarf versioning=semver
+        version: v0.29.2
+        download-init-package: ${{ inputs.download-init-package }}
         
