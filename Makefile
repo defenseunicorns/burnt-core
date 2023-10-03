@@ -41,4 +41,4 @@ remove/bundle: # Remove the uds-core bundle from k3d cluster
 	cd core && uds bundle remove uds-bundle-uds-core-*.tar.zst --confirm
 
 cleanup: # Remove all build and deployment time generated files ( also in the gitignore )
-	rm -rf build && cd core && rm -rf run tmp bigbang.dev.* ca.pem customreg.yaml on_failure.sh realm.json truststore.jks.b64 uds-bundle-uds-core-*.tar.zst values-keycloak.yaml values-authservice.yaml
+	rm -rf build && cd core && rm -rf run tmp bigbang.dev.* build/ ca.pem customreg.yaml on_failure.sh realm.json truststore.jks.b64 uds-bundle-uds-core-*.tar.zst values-keycloak.yaml values-authservice.yaml

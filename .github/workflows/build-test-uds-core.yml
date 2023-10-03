@@ -1,7 +1,6 @@
 name: Test UDS Core
 
 on:
-  push:
   pull_request:
     branches: [ "main" ]
 
