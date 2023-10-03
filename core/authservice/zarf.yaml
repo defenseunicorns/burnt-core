@@ -1,0 +1,80 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/defenseunicorns/zarf/main/zarf.schema.json
+
+kind: ZarfPackageConfig
+metadata:
+  name: uds-authservice
+  description: "UDS AuthService deployed via flux"
+  # x-release-please-start-version
+  version: "0.0.1"
+  # x-release-please-end
+  architecture: amd64
+
+variables:
+  - name: REALM
+    default: baby-yoda
+    prompt: false
+  - name: AUTHSERVICE_VALUES
+    default: values-authservice.yaml
+    prompt: false
+    type: file
+    autoIndent: true
+  - name: AUTHSERVICE_DEPENDS_ON
+    default: "[]"
+  - name: AUTHSERVICE_CREATE_NAMESPACE
+    default: "true"
+  - name: KEYCLOAK_BASE_DOMAIN
+    default: "keycloak.bigbang.dev"
+  - name: KEYCLOAK_REALM
+    default: "baby-yoda"
+  - name: CA_FILE
+    type: file
+    default: ca.pem
+    autoIndent: true
+components:
+  - name: pepr-sso
+    required: true
+    actions:
+      onCreate:
+        before:
+          - dir: pepr-sso
+            cmd: |
+              npm ci
+              npx pepr build
+            description: Build the pepr module
+    manifests:
+      - name: pepr-sso
+        namespace: pepr-system
+        files:
+          - pepr-sso/dist/pepr-module-ee997382-f23b-5ea2-93be-21cf7fe742a3.yaml
+    images:
+      - ghcr.io/defenseunicorns/pepr/controller:v0.12.1
+  - name: authservice-values
+    required: true
+    files:
+      - source: ca.pem
+        target: ca.pem
+      - source: values-authservice.yaml
+        target: values-authservice.yaml
+  - name: authservice
+    required: true
+    description: "Deploy authservice via flux"
+    charts:
+      # renovate: datasource=helm
+      - name: flux-app
+        url: https://defenseunicorns.github.io/uds-support-charts/
+        version: 1.0.7
+        releaseName: authservice-flux
+        namespace: bigbang
+        valuesFiles:
+          - authservice-flux-values.yaml
+    repos:
+      - https://repo1.dso.mil/big-bang/product/packages/authservice.git
+    images:
+      - registry1.dso.mil/ironbank/istio-ecosystem/authservice:0.5.3
+    actions:
+      onDeploy:
+        after:
+          - cmd: ./zarf tools wait-for HelmRelease authservice ready -n bigbang
+            maxRetries: 3
+            maxTotalSeconds: 300
+
