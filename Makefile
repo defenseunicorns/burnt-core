@@ -28,8 +28,8 @@ deploy/all: deploy/bundle # Deploy all built bundles to k3d cluster
 build: # Create build directory
 	mkdir -p build
 
-build/bundle: # Build uds-core bundle (zarf init, metallb, dubbd, idam, sso)
-	cd core && uds bundle create --set INIT_VERSION=$(ZARF_VERSION) --set METALLB_VERSION=$(METALLB_VERSION) --set DUBBD_VERSION=$(DUBBD_K3D_VERSION) --set IDAM_VERSION=$(IDAM_VERSION) --set SSO_VERSION=$(SSO_VERSION) --confirm
+build/bundle: | build # Build uds-core bundle (zarf init, metallb, dubbd, idam, sso)
+	cd core && uds bundle create --set INIT_VERSION=$(ZARF_VERSION) --set METALLB_VERSION=$(METALLB_VERSION) --set DUBBD_VERSION=$(DUBBD_K3D_VERSION) --set IDAM_VERSION=$(IDAM_VERSION) --confirm
 
 build/authservice: | build ## Build SSO package
 	cd core/authservice && zarf package create --tmpdir=/tmp --architecture amd64 --confirm --output ../build

@@ -11,6 +11,9 @@ inputs:
   download-init-package: 
     description: Include Zarf init package
     required: false
+  working-dir:
+    description: Zarf package path
+    required: true
 
 runs:
   using: composite
@@ -29,3 +32,7 @@ runs:
         version: v0.29.2
         download-init-package: ${{ inputs.download-init-package }}
         
+    - name: Create Zarf Package
+      shell: bash
+      run: zarf package create --confirm --output ../build
+      working-directory: ${{ inputs.working-dir }}

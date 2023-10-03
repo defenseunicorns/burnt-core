@@ -37,6 +37,7 @@ jobs:
           username: ${{ secrets.REGISTRY1_USERNAME }}
           password: ${{ secrets.REGISTRY1_PASSWORD }}
           download-init-package: true
+          working-dir: core/authservice
 
       - name: Create k3d cluster
         id: create-cluster
@@ -56,10 +57,10 @@ jobs:
           # renovate: datasource=github-tags depName=defenseunicorns/uds-cli versioning=semver
           version: 'v0.0.5-alpha'
 
-      - name: UDS CLI Bundle Creation
-        run: make build/all
+      - name: UDS CLI Core Bundle Creation
+        run: make build/bundle
 
-      - name: CLI Bundle Deployment
+      - name: UDS CLI Core Bundle Deployment
         run: make deploy/bundle
 
       - name: Teardown k3d cluster
