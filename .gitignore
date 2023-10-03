@@ -1,13 +1,3 @@
-uds-bundle-uds-core*.tar.zst
 build/
 run/
 tmp/
-zarf-sbom/
-on_failure.sh
-bigbang.dev.cert
-bigbang.dev.key
-customreg.yaml
-realm.json
-truststore.jks.b64
-values-keycloak.yaml
-values-authservice.yaml

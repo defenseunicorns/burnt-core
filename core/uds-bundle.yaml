@@ -30,6 +30,6 @@ zarf-packages:
     ref: "###BNDL_TMPL_IDAM_VERSION###"
 
   # UDS SSO
-  - name: uds-sso
-    repository: ghcr.io/defenseunicorns/uds-capability/uds-sso
-    ref: "###BNDL_TMPL_SSO_VERSION###"
+  - name: uds-authservice
+    path: ./build
+    ref: 0.0.1
