@@ -19,7 +19,9 @@ make cluster/full
 | [cluster/full](Makefile#L22) | Destroy any existing cluster, create a new one, then build and deploy all. |
 | [build/all](Makefile#L24) | Create the build directory and build the `uds-core` bundle.  |
 | [deploy/all](Makefile#L26) | Deploy the built `uds-core` bundle. |
+| [build](Makefile#L28) | Create build directory. |
 | [build/bundle](Makefile#L31) | Build the `uds-core` bundle. |
-| [deploy/bundle](Makefile#L34) | Deploy the `uds-core` bundle. |
-| [remove/bundle](Makefile#L37) | Remove the deployed `uds-core` bundle. |
-| [cleanup](Makefile#L40) | Remove all build and runtime generated files from project. |
+| [build/authservice](Makefile#L34) | Build only the [PEPR]() authservice / sso package for using in the bundle. |
+| [deploy/bundle](Makefile#L37) | Deploy the `uds-core` bundle. |
+| [remove/bundle](Makefile#L40) | Remove the deployed `uds-core` bundle. |
+| [cleanup](Makefile#L43) | Remove all build and runtime generated files from project. |
