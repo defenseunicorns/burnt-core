@@ -21,7 +21,7 @@ cluster/create: # Remove existing k3d cluster if it exists and create new k3d cl
 
 cluster/full: cluster/create build/all deploy/all  # Create k3d cluster, build all bundles, deploy all bundles
 
-build/all: build/bundle # Build all uds-core bundles
+build/all: build/authservice build/bundle # Build all uds-core bundles
 
 deploy/all: deploy/bundle # Deploy all built bundles to k3d cluster
 
