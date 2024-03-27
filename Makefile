@@ -1,17 +1,17 @@
 # renovate: datasource=docker depName=ghcr.io/defenseunicorns/packages/dubbd-k3d extractVersion=^(?<version>\d+\.\d+\.\d+)
-DUBBD_K3D_VERSION := 0.9.0
+DUBBD_K3D_VERSION := 0.21.0
 
 # renovate: datasource=github-tags depName=defenseunicorns/zarf
-ZARF_VERSION := v0.29.2
+ZARF_VERSION := v0.32.6
 
 # renovate: datasource=github-tags depName=defenseunicorns/uds-package-metallb
-METALLB_VERSION := 0.0.1
+METALLB_VERSION := 0.0.5
 
 # renovate: datasource=docker depName=ghcr.io/defenseunicorns/uds-capability/uds-idam extractVersion=^(?<version>\d+\.\d+\.\d+)
-IDAM_VERSION := 0.1.11
+IDAM_VERSION := 0.2.0
 
 # renovate: datasource=docker depName=ghcr.io/defenseunicorns/uds-capability/uds-sso extractVersion=^(?<version>\d+\.\d+\.\d+)
-SSO_VERSION := 0.1.3
+SSO_VERSION := 0.1.7
 
 ROOT_DIR := $(dir $(realpath $(lastword $(MAKEFILE_LIST))))
 
